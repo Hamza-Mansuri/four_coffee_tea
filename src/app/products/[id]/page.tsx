@@ -9,8 +9,7 @@ import { CheckCircle } from 'lucide-react';
 export default async function ProductPage({ params }: { params: { id: string } }) {
   // Await the params in Next.js 15+ or if using async components properly
   const { id } = await params;
-  
-  const product = productsData[id as keyof typeof productsData];
+  const product = productsData[id as keyof typeof productsData] as any;
 
   if (!product) {
     notFound();
