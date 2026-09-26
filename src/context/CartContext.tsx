@@ -33,7 +33,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const fetchBackendCart = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/cart', { credentials: 'include' });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/cart`, { credentials: 'include' });
       if (res.ok) {
         const data = await res.json();
         if (data && data.items) {
@@ -92,7 +92,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     // Sync with backend if logged in
     if (isLoggedIn) {
       const currentQuantity = cartItems.find(i => i.id === item.id)?.quantity || 0;
-      await fetch('http://localhost:5000/api/cart', {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId: item.id, quantity: currentQuantity + item.quantity }),
@@ -112,7 +112,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }));
 
     if (isLoggedIn) {
-      await fetch('http://localhost:5000/api/cart', {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId: id, quantity: newQuantity }),
@@ -125,7 +125,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCartItems(prev => prev.filter(item => item.id !== id));
 
     if (isLoggedIn) {
-      await fetch(`http://localhost:5000/api/cart/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/cart/${id}`, {
         method: 'DELETE',
         credentials: 'include'
       });

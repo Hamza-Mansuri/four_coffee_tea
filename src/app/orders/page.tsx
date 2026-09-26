@@ -28,7 +28,7 @@ export default function OrdersPage() {
       const fetchOrders = async () => {
         setLoadingOrders(true);
         try {
-          const res = await fetch('http://localhost:5000/api/payment/myorders', {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/payment/myorders`, {
             credentials: 'include'
           });
           if (res.ok) {

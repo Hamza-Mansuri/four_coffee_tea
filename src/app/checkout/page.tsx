@@ -90,7 +90,7 @@ export default function CheckoutPage() {
 
     try {
       // 1. Create order on our backend
-      const res = await fetch('http://localhost:5000/api/payment/create-order', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/payment/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -123,7 +123,7 @@ export default function CheckoutPage() {
         handler: async function (response: any) {
           // 3. Verify payment on success
           try {
-            const verifyRes = await fetch('http://localhost:5000/api/payment/verify-payment', {
+            const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/payment/verify-payment`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               credentials: 'include',
