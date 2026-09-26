@@ -2,6 +2,7 @@ import React from 'react';
 import { productsData } from '@/data/products';
 import ProductGallery from '@/components/product/ProductGallery';
 import ProductDetails from '@/components/product/ProductDetails';
+import ProductExtendedInfo from '@/components/product/ProductExtendedInfo';
 import ProductPerfectFor from '@/components/product/ProductPerfectFor';
 import ProductTestimonials from '@/components/product/ProductTestimonials';
 import ProductFAQ from '@/components/product/ProductFAQ';
@@ -27,12 +28,16 @@ export default function TeaProductPage() {
 
         </div>
 
+        {/* Extended Product Info (Full Width) */}
+        <ProductExtendedInfo product={product} />
+
       </div>
       
       {/* Perfect For Section */}
       <ProductPerfectFor 
         image={product.perfectForImage} 
         items={product.perfectForItems} 
+        claims={product.claims}
       />
 
       {/* Testimonials Section */}

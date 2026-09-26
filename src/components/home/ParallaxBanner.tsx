@@ -18,7 +18,7 @@ export default function ParallaxBanner() {
         </p>
         
         <Link 
-          href="/products"
+          href="/shop"
           className="inline-flex items-center justify-center px-8 py-4 bg-[#b4975a] text-white font-semibold rounded-full hover:bg-[#967d4a] transition-all duration-300 transform hover:scale-105 shadow-lg"
         >
           Discover The Range

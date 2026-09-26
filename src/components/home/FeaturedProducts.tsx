@@ -34,13 +34,13 @@ const products = [
 
 export default function FeaturedProducts() {
   return (
-    <section className="w-full py-24 bg-[#fcfcfc]">
+    <section className="w-full pt-12 pb-24 bg-[#fcfcfc]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-            Science Based Sport Supplements
+            Premium Everyday Superfoods
           </h2>
         </div>
 

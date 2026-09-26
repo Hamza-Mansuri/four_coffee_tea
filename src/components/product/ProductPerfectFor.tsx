@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 interface PerfectForItem {
   title: string;
@@ -12,11 +12,10 @@ interface PerfectForItem {
 interface ProductPerfectForProps {
   image: string;
   items: PerfectForItem[];
+  claims?: any;
 }
 
-export default function ProductPerfectFor({ image, items }: ProductPerfectForProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
+export default function ProductPerfectFor({ image, items, claims }: ProductPerfectForProps) {
   return (
     <section className="w-full py-12 bg-[#fdfbf7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,34 +25,58 @@ export default function ProductPerfectFor({ image, items }: ProductPerfectForPro
           {/* Left Side: Accordion text */}
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-4 tracking-tight">
-              Gomzi Supplement by RAG is perfect for:
+              Gomzi Naturals is perfect for:
             </h2>
             <p className="text-base text-gray-600 mb-6 leading-relaxed">
-              From peak performance to everyday wellness, Gomzi Supplement by RAG brings balanced nutrition into every moment of your life.
+              From peak performance to everyday wellness, Gomzi Naturals brings balanced nutrition into every moment of your life.
             </p>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
               {items.map((item, index) => (
-                <div key={index} className="border-b border-gray-200 last:border-b-0 pb-2">
-                  <button
-                    className="w-full text-left flex justify-between items-center py-2 focus:outline-none group"
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  >
-                    <span className="text-base font-semibold text-gray-800 group-hover:text-accent transition-colors">
-                      {item.title}
-                    </span>
-                    <ChevronDown 
-                      className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${openIndex === index ? 'rotate-180 text-accent' : ''}`}
-                    />
-                  </button>
-                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-40 opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
-                    <p className="text-sm text-gray-600">
-                      {item.desc}
-                    </p>
-                  </div>
+                <div key={index} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:border-accent/30 transition-colors">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
               ))}
             </div>
+
+            {/* Claims section added below the accordion */}
+            {claims && (
+              <div className="mt-10">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 border-b border-gray-200 pb-2">Claims We Can Use</h3>
+                
+                {claims.nutritional && (
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-accent mb-3">Nutritional Claims</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {claims.nutritional.map((claim: string, idx: number) => (
+                        <div key={idx} className="flex items-start gap-2 text-gray-700 bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                          <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                          <span className="text-sm font-medium">{claim}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {claims.functional && (
+                  <div>
+                    <h4 className="text-lg font-semibold text-accent mb-3">Functional & Formulation</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {claims.functional.map((claim: string, idx: number) => (
+                        <div key={idx} className="flex items-start gap-2 text-gray-700 bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                          <CheckCircle className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                          <span className="text-sm font-medium">{claim}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
           </div>
 
           {/* Right Side: Image */}
@@ -62,7 +85,7 @@ export default function ProductPerfectFor({ image, items }: ProductPerfectForPro
               src={image}
               alt="Perfect for your daily routine"
               fill
-              className={`object-cover ${image.includes('atta') ? 'object-bottom' : 'object-center'}`}
+              className={`object-cover ${image?.includes('atta') ? 'object-bottom' : 'object-center'}`}
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>

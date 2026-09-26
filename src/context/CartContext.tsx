@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 
 export interface CartItem {
-  id: string;
+  id: string; // The product string id
   title: string;
   flavor: string;
   price: number;
@@ -15,9 +15,9 @@ export interface CartItem {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (item: CartItem) => void;
-  updateQuantity: (id: string, delta: number) => void;
-  removeItem: (id: string) => void;
+  addToCart: (item: CartItem) => Promise<void>;
+  updateQuantity: (id: string, delta: number) => Promise<void>;
+  removeItem: (id: string) => Promise<void>;
   clearCart: () => void;
   cartCount: number;
   subtotal: number;
@@ -29,55 +29,58 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  // Load from local storage
-  useEffect(() => {
-    const cartKey = isLoggedIn && user?.uid ? `gomzi_cart_${user.uid}` : 'gomzi_cart_guest';
-    const savedCart = localStorage.getItem(cartKey);
-    if (savedCart) {
-      try {
-        setCartItems(JSON.parse(savedCart));
-      } catch (e) {}
-    } else {
-        // Initial mock data if empty
-        if (!isLoggedIn) {
-          setCartItems([
-              {
-                id: 'mocha',
-                title: 'Mass Gainer',
-                flavor: 'Coffee',
-                price: 1800,
-                originalPrice: 2500,
-                quantity: 1,
-                image: '/assets/images/mocha-480.webp'
-              },
-              {
-                id: 'mocha-2',
-                title: 'Mass Gainer',
-                flavor: 'Mango',
-                price: 1800,
-                originalPrice: 2500,
-                quantity: 1,
-                image: '/assets/images/mocha-480.webp'
-              }
-          ]);
-        } else {
-          setCartItems([]);
+  const fetchBackendCart = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/cart', { credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.items) {
+          // Map backend items to frontend CartItem format
+          const mappedItems: CartItem[] = data.items.map((i: any) => ({
+            id: i.product.id,
+            title: i.product.title,
+            flavor: i.product.subtitle || '',
+            price: i.product.price,
+            originalPrice: i.product.originalPrice || i.product.price,
+            quantity: i.quantity,
+            image: i.product.images[0] || ''
+          }));
+          setCartItems(mappedItems);
         }
+      }
+    } catch (e) {
+      console.error('Error fetching backend cart', e);
     }
-    setIsLoaded(true);
-  }, [isLoggedIn, user?.uid]);
+  };
 
-  // Save to local storage on change
+  // Load from local storage or backend
   useEffect(() => {
-    if (isLoaded) {
-      const cartKey = isLoggedIn && user?.uid ? `gomzi_cart_${user.uid}` : 'gomzi_cart_guest';
-      localStorage.setItem(cartKey, JSON.stringify(cartItems));
+    if (isLoggedIn) {
+      fetchBackendCart().then(() => setIsLoaded(true));
+    } else {
+      const savedCart = localStorage.getItem('gomzi_cart_guest');
+      if (savedCart) {
+        try {
+          setCartItems(JSON.parse(savedCart));
+        } catch (e) {}
+      } else {
+        setCartItems([]);
+      }
+      setIsLoaded(true);
     }
-  }, [cartItems, isLoaded, isLoggedIn, user?.uid]);
+  }, [isLoggedIn]);
 
-  const addToCart = (item: CartItem) => {
+  // Save to local storage for guests only
+  useEffect(() => {
+    if (isLoaded && !isLoggedIn) {
+      localStorage.setItem('gomzi_cart_guest', JSON.stringify(cartItems));
+    }
+  }, [cartItems, isLoaded, isLoggedIn]);
+
+  const addToCart = async (item: CartItem) => {
+    // Optimistic update
     setCartItems(prev => {
       const existing = prev.find(i => i.id === item.id);
       if (existing) {
@@ -85,27 +88,60 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, item];
     });
+
+    // Sync with backend if logged in
+    if (isLoggedIn) {
+      const currentQuantity = cartItems.find(i => i.id === item.id)?.quantity || 0;
+      await fetch('http://localhost:5000/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: item.id, quantity: currentQuantity + item.quantity }),
+        credentials: 'include'
+      });
+    }
   };
 
-  const updateQuantity = (id: string, delta: number) => {
+  const updateQuantity = async (id: string, delta: number) => {
+    let newQuantity = 1;
     setCartItems(prev => prev.map(item => {
       if (item.id === id) {
-        return { ...item, quantity: Math.max(1, item.quantity + delta) };
+        newQuantity = Math.max(1, item.quantity + delta);
+        return { ...item, quantity: newQuantity };
       }
       return item;
     }));
+
+    if (isLoggedIn) {
+      await fetch('http://localhost:5000/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: id, quantity: newQuantity }),
+        credentials: 'include'
+      });
+    }
   };
 
-  const removeItem = (id: string) => {
+  const removeItem = async (id: string) => {
     setCartItems(prev => prev.filter(item => item.id !== id));
+
+    if (isLoggedIn) {
+      await fetch(`http://localhost:5000/api/cart/${id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+    }
   };
 
-  const clearCart = () => setCartItems([]);
+  const clearCart = () => {
+    setCartItems([]);
+    if (!isLoggedIn) {
+      localStorage.removeItem('gomzi_cart_guest');
+    }
+  };
 
-  // Wait for load before rendering to avoid hydration mismatch
   if (!isLoaded) return null;
 
-  const cartCount = cartItems.length; // Number of unique items
+  const cartCount = cartItems.length;
   const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const originalTotal = cartItems.reduce((acc, item) => acc + (item.originalPrice * item.quantity), 0);
 

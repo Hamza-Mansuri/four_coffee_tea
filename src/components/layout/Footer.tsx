@@ -13,17 +13,27 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-6">
               <img src="/assets/images/logo.webp" alt="Gomzi" className="h-10 w-auto" />
             </div>
-            <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-              Premium Sports Nutrition Supplements manufactured with international quality standards.
+            <p className="text-gray-400 mb-4 text-sm leading-relaxed">
+              Premium, everyday functional nutrition and natural superfoods designed for a balanced lifestyle. Welcome to Gomzi Naturals.
             </p>
-            <div className="text-sm text-gray-400 space-y-2">
-              <p>+91 98752 70200</p>
-              <p><a href="mailto:info@ragnutrition.com" className="hover:text-accent transition-colors">info@ragnutrition.com</a></p>
-              <p className="mt-4 leading-relaxed">
-                G-23-TIME SQUARE, Gaurav Path Road,<br />
-                TP 10 Main Rd, opp. Shree Bharti Residency,<br />
-                Surat, Gujarat 394510
-              </p>
+            <div className="text-sm text-gray-400 space-y-1.5 flex flex-col">
+              <p className="font-semibold text-gray-300">Gomzi Lifesciences LLP</p>
+              
+              <a href="tel:+918320077993" className="hover:text-accent transition-colors">
+                +91 8320077993
+              </a>
+              
+              <a href="https://wa.me/+918320077993" target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors">
+                WhatsApp: Chat with us
+              </a>
+              
+              <a href="mailto:info@gomzilifesciences.in" className="hover:text-accent transition-colors">
+                info@gomzilifesciences.in
+              </a>
+              
+              <a href="https://maps.google.com/maps?q=21.189452,72.73386" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors leading-snug pt-1">
+                443, 444, 445, 1st Floor, RJD Textile Park, At.Ichchhapor, Hazira Road, Surat, Gujarat 394510
+              </a>
             </div>
           </div>
 
@@ -31,12 +41,10 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6">Shop</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><Link href="#" className="hover:text-accent transition-colors">All products</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Atta Feast</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Mocha Feast</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Chai Feast</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Vitamins</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Everyday Essentials</Link></li>
+              <li><Link href="/shop" className="hover:text-accent transition-colors">All products</Link></li>
+              <li><Link href="/products/atta" className="hover:text-accent transition-colors">Atta Feast</Link></li>
+              <li><Link href="/products/mocha" className="hover:text-accent transition-colors">Mocha Feast</Link></li>
+              <li><Link href="/products/tea" className="hover:text-accent transition-colors">Chai Feast</Link></li>
             </ul>
           </div>
 
@@ -44,9 +52,8 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6">Our Story</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><Link href="#" className="hover:text-accent transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Contact Us</Link></li>
-              <li><Link href="#" className="hover:text-accent transition-colors">Careers</Link></li>
+              <li><Link href="/" className="hover:text-accent transition-colors">About Us</Link></li>
+              <li><Link href="/contact" className="hover:text-accent transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -66,9 +73,11 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm text-center md:text-left">
-            &copy; 2026 Gomzi Supplement by RAG. All Rights Reserved
-          </p>
+          <div className="text-gray-500 text-sm text-center md:text-left">
+            <Link href="/" className="hover:text-accent transition-colors">
+              &copy; 2026 Gomzi Naturals. All Rights Reserved
+            </Link>
+          </div>
           <div className="flex gap-4">
             {/* Social / Payment placeholder if needed */}
             <span className="text-gray-500 text-sm">Follow Us | We Accept</span>

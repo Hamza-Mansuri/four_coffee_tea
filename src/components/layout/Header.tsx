@@ -24,13 +24,16 @@ export default function Header() {
 
   // Dummy search products for demo
   const allProducts = [
-    { id: 'mocha', name: 'Mocha Feast' },
-    { id: 'atta', name: 'Atta Feast' },
-    { id: 'tea', name: 'Chai Feast' }
+    { id: 'mocha', name: 'Mocha Feast', keywords: 'coffee chocolate cocoa caffeine drink energy beverage' },
+    { id: 'atta', name: 'Atta Feast', keywords: 'flour wheat roti chapati daily nutrition baking bread' },
+    { id: 'tea', name: 'Chai Feast', keywords: 'tea chai masala milk sweet immunity spices ginger cardamom beverage' }
   ];
 
   const searchResults = searchQuery.trim() 
-    ? allProducts.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? allProducts.filter(p => {
+        const query = searchQuery.toLowerCase();
+        return p.name.toLowerCase().includes(query) || p.keywords.includes(query);
+      })
     : [];
 
   const handleProfileClick = () => {

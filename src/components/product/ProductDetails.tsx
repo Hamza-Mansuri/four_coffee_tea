@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, Minus, Plus } from 'lucide-react';
+import { Minus, Plus, CheckCircle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 interface ProductDetailsProps {
@@ -10,7 +10,6 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
-  const [openSection, setOpenSection] = useState<string | null>('health');
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
@@ -26,109 +25,75 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     window.dispatchEvent(new Event('open-cart'));
   };
 
-  const sections = [
-    { id: 'health', title: 'Health Benefits', content: product.healthBenefits },
-    { id: 'desc', title: 'Description & Ingredients', content: product.description },
-    { id: 'dir', title: 'Direction for use', content: product.directions },
-    { id: 'storage', title: 'Storage Instructions', content: product.storage },
-  ];
-
   return (
     <div className="flex flex-col">
       {/* Breadcrumb / Title Area */}
       <nav className="text-sm text-gray-500 mb-4 flex gap-2">
-        <a href="/" className="hover:text-accent">Home</a>
+        <a href="/" className="hover:text-accent transition-colors">Home</a>
         <span>›</span>
-        <span>Products</span>
+        <a href="/shop" className="hover:text-accent transition-colors">Products</a>
         <span>›</span>
-        <span className="text-gray-900">{product.title}</span>
+        <span className="text-gray-900 font-medium">{product.title}</span>
       </nav>
 
       <h1 className="text-4xl font-extrabold text-foreground mb-3">{product.title}</h1>
       <p className="text-gray-600 text-lg mb-6">{product.subtitle}</p>
 
-      {/* Price */}
-      <div className="flex items-end gap-4 mb-8 border-b pb-6">
-        <span className="text-3xl font-bold text-gray-900">{product.price}</span>
-        <span className="text-xl text-gray-400 line-through mb-1">{product.originalPrice}</span>
-        <span className="text-green-600 font-medium text-sm mb-1 px-2 py-1 bg-green-50 rounded-md">
-          {product.stockStatus}
-        </span>
-      </div>
-
-      {/* Quantity & Add to Cart */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-10 border-b pb-10">
-        <div className="flex items-center border border-gray-300 rounded-full bg-white h-14">
-          <button 
-            className="w-14 h-full flex items-center justify-center text-gray-600 hover:text-foreground"
-            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-          >
-            <Minus className="w-5 h-5" />
-          </button>
-          <span className="w-12 text-center font-semibold text-lg">{quantity}</span>
-          <button 
-            className="w-14 h-full flex items-center justify-center text-gray-600 hover:text-foreground"
-            onClick={() => setQuantity(quantity + 1)}
-          >
-            <Plus className="w-5 h-5" />
-          </button>
+      {/* NEW PRICE & CART ROW */}
+      <div className="flex flex-wrap items-center gap-6 mb-8 border-b pb-8">
+        <div className="flex flex-col">
+          <div className="flex items-end gap-3">
+            <span className="text-4xl font-bold text-gray-900">{product.price}</span>
+            <span className="text-xl text-gray-400 line-through mb-1">{product.originalPrice}</span>
+          </div>
+          <span className="text-green-600 font-medium text-sm mt-1 inline-block px-2 py-1 bg-green-50 rounded-md w-fit border border-green-200">
+            {product.stockStatus}
+          </span>
         </div>
         
-        <button 
-          className="flex-1 h-14 bg-accent text-white font-bold rounded-full hover:bg-[#967d4a] transition-all transform hover:scale-[1.02] shadow-lg text-lg uppercase tracking-wide"
-          onClick={handleAddToCart}
-        >
-          Add to Cart
-        </button>
-      </div>
-
-      {/* Accordions */}
-      <div className="space-y-4 mb-8">
-        {sections.map((section) => (
-          <div key={section.id} className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm">
-            <button
-              className="w-full px-5 py-3 flex justify-between items-center text-left font-semibold text-gray-900 bg-white"
-              onClick={() => setOpenSection(openSection === section.id ? null : section.id)}
+        <div className="flex-1 flex flex-wrap sm:flex-nowrap items-center gap-4 sm:ml-auto justify-start sm:justify-end">
+          <div className="flex items-center border border-gray-300 rounded-full bg-white h-12 shrink-0">
+            <button 
+              className="w-12 h-full flex items-center justify-center text-gray-600 hover:text-foreground"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
             >
-              {section.title}
-              <ChevronDown 
-                className={`w-4 h-4 text-gray-500 transition-transform ${openSection === section.id ? 'rotate-180' : ''}`}
-              />
+              <Minus className="w-4 h-4" />
             </button>
-            <div className={`px-5 overflow-hidden transition-all ease-in-out ${openSection === section.id ? 'max-h-96 py-3 opacity-100' : 'max-h-0 opacity-0'}`}>
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line text-sm">
-                {section.content}
-              </p>
-            </div>
+            <span className="w-8 text-center font-semibold text-lg">{quantity}</span>
+            <button 
+              className="w-12 h-full flex items-center justify-center text-gray-600 hover:text-foreground"
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              <Plus className="w-4 h-4" />
+            </button>
           </div>
-        ))}
-        
-        {/* Nutrition Facts Accordion */}
-        <div className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 shadow-sm">
-          <button
-            className="w-full px-5 py-3 flex justify-between items-center text-left font-semibold text-gray-900 bg-white"
-            onClick={() => setOpenSection(openSection === 'nutrition' ? null : 'nutrition')}
+          
+          <button 
+            className="h-12 px-8 bg-accent text-white font-bold rounded-full hover:bg-[#967d4a] transition-all transform hover:scale-[1.02] shadow-lg uppercase tracking-wide shrink-0"
+            onClick={handleAddToCart}
           >
-            Nutrition Information
-            <ChevronDown 
-              className={`w-4 h-4 text-gray-500 transition-transform ${openSection === 'nutrition' ? 'rotate-180' : ''}`}
-            />
+            Add to Cart
           </button>
-          <div className={`overflow-hidden transition-all ease-in-out ${openSection === 'nutrition' ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-            <table className="w-full text-xs text-left bg-white">
-              <tbody>
-                {Object.entries(product.nutrition).map(([key, value], idx) => (
-                  <tr key={key} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="px-5 py-2 font-medium text-gray-700 border-t border-gray-100">{key}</td>
-                    <td className="px-5 py-2 text-gray-600 text-right border-t border-gray-100 font-semibold">{value as React.ReactNode}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
 
+      {/* NON-DROPDOWN OPEN SECTIONS */}
+      <div className="space-y-8">
+        
+        {/* Description & Ingredients */}
+        <div>
+          <h3 className="text-xl font-bold text-gray-900 mb-3 pb-2 border-b border-gray-100">Description</h3>
+          <p className="text-gray-600 leading-relaxed">{product.description}</p>
+          
+          {product.ingredients && (
+            <div className="mt-4">
+              <h4 className="text-lg font-bold text-gray-900 mb-2">Ingredients</h4>
+              <p className="text-gray-600 leading-relaxed">{product.ingredients}</p>
+            </div>
+          )}
+        </div>
+
+      </div>
     </div>
   );
 }

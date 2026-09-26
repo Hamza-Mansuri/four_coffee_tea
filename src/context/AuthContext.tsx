@@ -3,23 +3,18 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
-  firstName: string;
-  lastName: string;
+  _id: string;
+  name: string;
   email: string;
-  phone: string;
-  birthDate: string;
-  uid: string;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
+  role: string;
 }
 
 interface AuthContextType {
   isLoggedIn: boolean;
   user: User | null;
-  login: (userData?: Partial<User>) => void;
-  logout: () => void;
+  login: (email: string, password?: string) => Promise<boolean>;
+  logout: () => Promise<void>;
+  checkAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,75 +24,70 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const defaultUser: User = {
-    firstName: 'Hamza',
-    lastName: 'Mansuri',
-    email: 'hamzamansuri7103@gmail.com',
-    phone: '-',
-    birthDate: '-',
-    uid: '755450267320',
-    address: '',
-    city: '-',
-    state: '',
-    country: ''
+  const checkAuth = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/profile', {
+        credentials: 'include'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+        setIsLoggedIn(true);
+      } else {
+        setUser(null);
+        setIsLoggedIn(false);
+      }
+    } catch (err) {
+      setUser(null);
+      setIsLoggedIn(false);
+    } finally {
+      setIsLoaded(true);
+    }
   };
 
   useEffect(() => {
-    const status = localStorage.getItem('gomzi_auth');
-    if (status === 'true') {
-      setIsLoggedIn(true);
-      const savedUser = localStorage.getItem('gomzi_user');
-      if (savedUser) {
-        try {
-          setUser(JSON.parse(savedUser));
-        } catch (e) {
-          setUser(defaultUser);
-        }
-      } else {
-        setUser(defaultUser);
-      }
-    }
-    setIsLoaded(true);
+    checkAuth();
   }, []);
 
-  const login = (userData?: Partial<User>) => {
-    setIsLoggedIn(true);
-
-    const dbKey = 'gomzi_users_db';
-    let usersDb: Record<string, User> = {};
+  const login = async (email: string, password = 'password123') => {
     try {
-      usersDb = JSON.parse(localStorage.getItem(dbKey) || '{}');
-    } catch (e) {}
-
-    const identifier = userData?.email && userData.email !== '-' ? userData.email : userData?.phone;
-    let newUser: User;
-
-    if (identifier && usersDb[identifier]) {
-      newUser = { ...usersDb[identifier], ...userData, uid: usersDb[identifier].uid } as User;
-    } else {
-      newUser = { ...defaultUser, ...userData } as User;
-      if (identifier) {
-        usersDb[identifier] = newUser;
+      // In a real scenario, password comes from a form. For now, we simulate if missing.
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+        setIsLoggedIn(true);
+        return true;
       }
+      return false;
+    } catch (error) {
+      console.error('Login failed', error);
+      return false;
     }
-
-    localStorage.setItem(dbKey, JSON.stringify(usersDb));
-    setUser(newUser);
-    localStorage.setItem('gomzi_auth', 'true');
-    localStorage.setItem('gomzi_user', JSON.stringify(newUser));
   };
 
-  const logout = () => {
-    setIsLoggedIn(false);
-    setUser(null);
-    localStorage.setItem('gomzi_auth', 'false');
-    localStorage.removeItem('gomzi_user');
+  const logout = async () => {
+    try {
+      await fetch('http://localhost:5000/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      setUser(null);
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
   };
 
   if (!isLoaded) return null;
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, login, logout, checkAuth }}>
       {children}
     </AuthContext.Provider>
   );

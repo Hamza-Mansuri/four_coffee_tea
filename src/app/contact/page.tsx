@@ -27,56 +27,61 @@ export default function ContactPage() {
             
             <div className="space-y-8">
               {/* Phone */}
-              <div className="flex items-start gap-4 group">
+              <a href="tel:+918320077993" className="flex items-start gap-4 group cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent transition-colors">
                   <Phone className="w-6 h-6 text-accent group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-1">Contact Number</h3>
-                  <a href="tel:+918320077993" className="text-gray-600 hover:text-accent transition-colors">+91 8320077993</a>
+                  <h3 className="font-semibold text-gray-900 text-lg mb-1 group-hover:text-accent transition-colors">Contact Number</h3>
+                  <p className="text-gray-600 group-hover:text-accent transition-colors">+91 8320077993</p>
                 </div>
-              </div>
+              </a>
 
               {/* WhatsApp */}
-              <div className="flex items-start gap-4 group">
+              <a href="https://wa.me/+918320077993" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 group-hover:bg-green-600 transition-colors">
                   <MessageCircle className="w-6 h-6 text-green-600 group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-1">WhatsApp</h3>
-                  <a href="https://wa.me/+918320077993" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-600 transition-colors">
+                  <h3 className="font-semibold text-gray-900 text-lg mb-1 group-hover:text-green-600 transition-colors">WhatsApp</h3>
+                  <p className="text-gray-600 group-hover:text-green-600 transition-colors">
                     Chat with us on WhatsApp
-                  </a>
+                  </p>
                 </div>
-              </div>
+              </a>
 
               {/* Email */}
-              <div className="flex items-start gap-4 group">
+              <a href="mailto:info@gomzilifesciences.in" className="flex items-start gap-4 group cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent transition-colors">
                   <Mail className="w-6 h-6 text-accent group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-1">Email Address</h3>
-                  <a href="mailto:info@gomzilifesciences.in" className="text-gray-600 hover:text-accent transition-colors">
+                  <h3 className="font-semibold text-gray-900 text-lg mb-1 group-hover:text-accent transition-colors">Email Address</h3>
+                  <p className="text-gray-600 group-hover:text-accent transition-colors">
                     info@gomzilifesciences.in
-                  </a>
+                  </p>
                 </div>
-              </div>
+              </a>
 
               {/* Address */}
-              <div className="flex items-start gap-4 group">
+              <a 
+                href="https://maps.google.com/maps?q=21.189452,72.73386" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-start gap-4 group cursor-pointer"
+              >
                 <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent transition-colors">
                   <MapPin className="w-6 h-6 text-accent group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-lg mb-1">Address</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <h3 className="font-semibold text-gray-900 text-lg mb-1 group-hover:text-accent transition-colors">Address</h3>
+                  <p className="text-gray-600 leading-relaxed group-hover:text-accent transition-colors block">
                     443, 444, 445, 1st Floor, RJD Textile Park,<br />
                     At.Ichchhapor, Hazira Road,<br />
                     Surat, Gujarat 394510
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
 

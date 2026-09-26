@@ -29,10 +29,10 @@ export default function WhyGomzi() {
           {/* Left Side - Content */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left">
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6">
-              Why Gomzi Supplement?
+              Why Gomzi Naturals?
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Gomzi Supplement is built on the legacy of RAG and years of real-world expertise in health and fitness education. Our flagship offerings—such as <strong>Chai Feast</strong>, <strong>Mocha Feast</strong>, and <strong>Atta Feast</strong>—bring you the finest ingredients from instant tea and coffee blends to nutritious daily essentials without any hidden compromises.
+              Gomzi Naturals is built on the legacy of RAG and years of real-world expertise in health and fitness education. Our flagship offerings—such as <strong>Chai Feast</strong>, <strong>Mocha Feast</strong>, and <strong>Atta Feast</strong>—bring you the finest ingredients from instant tea and coffee blends to nutritious daily essentials without any hidden compromises.
             </p>
             
             {/* Features List */}
