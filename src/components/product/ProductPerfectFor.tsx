@@ -31,16 +31,38 @@ export default function ProductPerfectFor({ image, items, claims }: ProductPerfe
               From peak performance to everyday wellness, Gomzi Naturals brings balanced nutrition into every moment of your life.
             </p>
 
-            <div className="space-y-4">
-              {items.map((item, index) => (
-                <div key={index} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:border-accent/30 transition-colors">
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
+            {/* Mobile Image (hidden on desktop) */}
+            <div className="relative h-[250px] sm:h-[300px] w-full rounded-3xl overflow-hidden shadow-xl mb-6 lg:hidden">
+              <Image
+                src={image}
+                alt="Perfect for your daily routine"
+                fill
+                className={`object-cover ${image?.includes('atta') ? 'object-bottom' : 'object-center'}`}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
+
+            {items.some(item => item.desc) ? (
+              <div className="space-y-4">
+                {items.map((item, index) => (
+                  <div key={index} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:border-accent/30 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
+                {items.map((item, index) => (
+                  <div key={index} className="flex items-center gap-2 bg-white w-fit px-4 py-2.5 rounded-full border border-gray-200 shadow-sm hover:border-green-500/30 hover:shadow-md transition-all">
+                    <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
+                    <span className="text-sm font-semibold text-gray-800">{item.title}</span>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Claims section added below the accordion */}
             {claims && (
@@ -53,7 +75,7 @@ export default function ProductPerfectFor({ image, items, claims }: ProductPerfe
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {claims.nutritional.map((claim: string, idx: number) => (
                         <div key={idx} className="flex items-start gap-2 text-gray-700 bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-                          <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                          <CheckCircle className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
                           <span className="text-sm font-medium">{claim}</span>
                         </div>
                       ))}
@@ -80,7 +102,7 @@ export default function ProductPerfectFor({ image, items, claims }: ProductPerfe
           </div>
 
           {/* Right Side: Image */}
-          <div className="relative h-[300px] sm:h-[400px] lg:h-[450px] w-full rounded-3xl overflow-hidden shadow-xl sticky top-8">
+          <div className="relative h-[300px] sm:h-[400px] lg:h-[450px] w-full rounded-3xl overflow-hidden shadow-xl sticky top-8 hidden lg:block">
             <Image
               src={image}
               alt="Perfect for your daily routine"

@@ -110,6 +110,13 @@ export default function ProductExtendedInfo({ product }: { product: any }) {
     </div>
   );
 
+  const extraInfoSection = product.extraInfo && (
+    <div>
+      <h3 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-100 uppercase">{product.extraInfo.title}</h3>
+      <p className="text-gray-600 leading-relaxed text-lg bg-indigo-50/50 p-5 rounded-xl border border-indigo-100">{product.extraInfo.desc}</p>
+    </div>
+  );
+
   return (
     <div className="mt-16 pt-16 pb-16 border-t border-gray-200">
       
@@ -120,6 +127,7 @@ export default function ProductExtendedInfo({ product }: { product: any }) {
           {healthBenefitsSection}
           {keyBenefitsSection}
           {directionsSection}
+          {extraInfoSection}
         </div>
         {/* Right Column */}
         <div className="space-y-12">
@@ -135,6 +143,7 @@ export default function ProductExtendedInfo({ product }: { product: any }) {
         {healthBenefitsSection}
         {keyBenefitsSection}
         {storageSection}
+        {extraInfoSection}
       </div>
 
     </div>

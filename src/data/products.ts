@@ -11,33 +11,65 @@ export const productsData = {
       '/assets/images/atta_feast.webp',
       '/assets/images/atta-p2.webp'
     ],
-    healthBenefits: 'Atta Feast - Premium wholesome daily flour blend designed for balanced nutrition, sustained energy, and digestive health. Perfect for daily consumption by fitness enthusiasts and families alike.',
-    description: 'Whole wheat flour, multigrain blend (soy, oats, chickpeas), fortified vitamins and minerals. No added preservatives.',
-    directions: 'Step 1: Use as regular flour for making rotis, parathas, or baking. Step 2: Knead with warm water for best results.',
-    storage: 'Store in a cool, dry place. Keep tightly closed in an airtight container. Protect from direct sunlight and moisture.',
-    nutrition: {
-      Energy: '340 kcal',
-      Protein: '12g',
-      Carbohydrates: '70g',
-      Fat: '2g',
-      Fiber: '10g',
-      'Vitamin C': '0mg',
-      Iron: '4mg',
-      Resveratrol: '0mg'
+    ingredients: 'Whole Wheat Flour, Defatted Peanut Powder, Pea Protein, Soy Protein, Wheat Protein (Gluten), Thickener [INS 415], Salt, Stabilizer [INS 412].',
+    description: 'This Protein Atta is a premium functional staple designed to seamlessly integrate high-quality plant proteins into daily diets. By fortifying whole wheat flour with a synergistic blend of defatted peanut powder, pea protein, and soy protein, this matrix delivers 38.8g of protein per 100g without compromising dough elasticity or texture. Food-grade hydrocolloids ensure optimal moisture retention and rolling consistency, making it an ideal drop-in replacement for standard flour.',
+    healthBenefitsData: [
+      { title: 'Muscle Synthesis & Maintenance', desc: 'Delivers 12.9g of protein (23.9% RDA) per serving from a diverse plant-based amino acid pool.' },
+      { title: 'Sustained Energy & Satiety', desc: 'Provides 9.8g of dietary fiber per 100g to support gut motility and prolong fullness.' },
+      { title: 'Clean Macronutrient Profile', desc: 'Formulated with strictly zero added sugars and zero trans fats for optimized metabolic health.' }
+    ],
+    directionsData: [
+      { title: 'Directions For Use', desc: 'Use as a direct 1:1 replacement for traditional wheat flour when preparing rotis, chapatis, or baked goods. For optimal dough hydration, gradually add lukewarm water and knead thoroughly. Allow the dough to rest for 15–20 minutes before rolling to let the hydrocolloids fully activate for maximum softness.' }
+    ],
+    storage: 'Store in an airtight container in a cool, dry place away from direct sunlight. Due to the high protein and lipid content from the peanut and soy matrix, strict moisture control is essential to maintain shelf life and prevent rancidity.',
+    extraInfo: {
+      title: 'PROTEIN ATTA',
+      desc: 'High-protein, multi-source functional flour blend engineered with defatted peanut, pea, and soy isolates for superior muscle recovery and daily nutrition.'
     },
+    nutritionInfo: {
+      servingSize: '33.3 g',
+      recommendedUse: 'Use as a direct 1:1 replacement for standard flour.'
+    },
+    nutritionTable: [
+      { name: 'Energy (kcal)', per100: '368', perServing: '122.5', rda: '6.10%' },
+      { name: 'Protein (g)', per100: '38.8', perServing: '12.9', rda: '23.90%' },
+      { name: 'Total Carbohydrates (g)', per100: '44', perServing: '14.6', rda: '**' },
+      { name: 'Total Sugars (g)', per100: '1.8', perServing: '0.6', rda: '**' },
+      { name: 'Added Sugars (g)', per100: '0', perServing: '0', rda: '0.00%' },
+      { name: 'Dietary Fiber (g)', per100: '9.8', perServing: '3.3', rda: '**' },
+      { name: 'Total Fat (g)', per100: '4.1', perServing: '1.4', rda: '2.10%' },
+      { name: 'Saturated Fat (g)', per100: '0.8', perServing: '0.3', rda: '1.40%' },
+      { name: 'Trans Fat (g)', per100: '0', perServing: '0', rda: '0.00%' },
+      { name: 'Sodium (mg)', per100: '412', perServing: '137', rda: '6.80%' }
+    ],
     perfectForImage: '/assets/images/atta-p1.webp',
     perfectForItems: [
-      { title: 'Breakfast', desc: 'Start your day right with rotis or parathas for sustained energy.' },
-      { title: 'Lunch', desc: 'Provides a hearty, wholesome meal packed with fiber.' },
-      { title: 'Weight Management', desc: 'High fiber content keeps you full longer, helping you avoid snacking.' },
-      { title: 'Gaming Sessions', desc: 'Steady energy release to keep you focused.' },
-      { title: 'Intense Work Periods', desc: 'Nutrient-rich to support cognitive function during long hours.' },
-      { title: 'Pre/Post Workout', desc: 'Complex carbs fuel your workouts and aid recovery.' }
+      { title: 'Supports muscle recovery', desc: '' },
+      { title: 'Promotes lean muscle growth', desc: '' },
+      { title: 'Provides sustained energy', desc: '' },
+      { title: 'Supports healthy digestion', desc: '' },
+      { title: '100% Plant-Based Protein', desc: '' },
+      { title: 'Rich in Dietary Fiber', desc: '' },
+      { title: 'Zero Added Sugar', desc: '' },
+      { title: 'Zero Trans Fat', desc: '' },
+      { title: 'Maintains dough elasticity', desc: '' },
+      { title: 'Perfect for daily rotis', desc: '' }
     ],
+    claims: {
+      nutritional: [
+        'High Protein (38.8g per 100g)',
+        'Zero Added Sugar',
+        'Zero Trans Fat',
+        'Source of Dietary Fiber',
+        'Plant-Powered Protein Blend'
+      ]
+    },
     testimonials: [
-      { name: 'Sanjay M.', review: 'Since switching to Atta Feast, my digestion has improved immensely. The rotis come out soft and perfect!', dp: 'https://i.pravatar.cc/150?img=11' },
-      { name: 'Kavita R.', review: 'A true game changer for our family. Knowing that every paratha is packed with extra nutrients gives me peace of mind.', dp: 'https://i.pravatar.cc/150?img=5' },
-      { name: 'Anil P.', review: 'Great taste and energy that lasts all day. Highly recommended for anyone wanting a wholesome staple.', dp: 'https://i.pravatar.cc/150?img=8' }
+      { name: 'Sanjay M.', review: 'Since switching to Atta Feast, my digestion has improved immensely. The rotis come out soft and perfect!', dp: 'https://randomuser.me/api/portraits/men/67.jpg' },
+      { name: 'Kavita R.', review: 'A true game changer for our family. Knowing that every paratha is packed with extra nutrients gives me peace of mind.', dp: 'https://randomuser.me/api/portraits/women/41.jpg' },
+      { name: 'Anil P.', review: 'Great taste and energy that lasts all day. Highly recommended for anyone wanting a wholesome staple.', dp: 'https://randomuser.me/api/portraits/men/40.jpg' },
+      { name: 'Rahul D.', review: 'I use this for baking and my healthy breads turn out amazing every single time.', dp: 'https://randomuser.me/api/portraits/men/92.jpg' },
+      { name: 'Meera S.', review: 'My kids love the rotis made from this. It feels great to feed them a high-protein diet effortlessly.', dp: 'https://randomuser.me/api/portraits/women/12.jpg' }
     ],
     faqImage: '/assets/images/attap3.webp',
     faqs: [
@@ -112,9 +144,11 @@ export const productsData = {
       ]
     },
     testimonials: [
-      { name: 'Vikram S.', review: 'Mocha Feast is exactly what I need before hitting the gym. Amazing coffee flavor with zero crash!', dp: 'https://i.pravatar.cc/150?img=12' },
-      { name: 'Pooja T.', review: 'I used to struggle with protein digestion, but this blend sits perfectly and tastes like a premium cafe mocha.', dp: 'https://i.pravatar.cc/150?img=9' },
-      { name: 'Rohan D.', review: 'The best tasting sports supplement I have ever used. Hits the perfect balance of chocolate and coffee.', dp: 'https://i.pravatar.cc/150?img=13' }
+      { name: 'Vikram S.', review: 'Mocha Feast is exactly what I need before hitting the gym. Amazing coffee flavor with zero crash!', dp: 'https://randomuser.me/api/portraits/men/81.jpg' },
+      { name: 'Pooja T.', review: 'I used to struggle with protein digestion, but this blend sits perfectly and tastes like a premium cafe mocha.', dp: 'https://randomuser.me/api/portraits/women/37.jpg' },
+      { name: 'Rohan D.', review: 'The best tasting sports supplement I have ever used. Hits the perfect balance of chocolate and coffee.', dp: 'https://randomuser.me/api/portraits/men/47.jpg' },
+      { name: 'Arjun K.', review: 'Perfect for my iced mochas! Dissolves smoothly and the protein content is a huge plus.', dp: 'https://randomuser.me/api/portraits/men/7.jpg' },
+      { name: 'Sneha L.', review: 'I replaced my daily cafe trips with this. The chocolatey coffee flavor is incredibly rich and authentic.', dp: 'https://randomuser.me/api/portraits/women/22.jpg' }
     ],
     faqImage: '/assets/images/cp2.webp',
     faqs: [
@@ -189,9 +223,11 @@ export const productsData = {
       ]
     },
     testimonials: [
-      { name: 'Aarti K.', review: 'Chai Feast has completely replaced my regular evening tea. It relaxes me and tastes incredibly authentic.', dp: 'https://i.pravatar.cc/150?img=10' },
-      { name: 'Rajesh N.', review: 'Finally, a healthy tea that actually tastes like Indian masala chai. Love the subtle cardamom kick.', dp: 'https://i.pravatar.cc/150?img=14' },
-      { name: 'Neha V.', review: 'I feel so much more balanced and less stressed after switching to Chai Feast.', dp: 'https://i.pravatar.cc/150?img=16' }
+      { name: 'Aarti K.', review: 'Chai Feast has completely replaced my regular evening tea. It relaxes me and tastes incredibly authentic.', dp: 'https://randomuser.me/api/portraits/women/89.jpg' },
+      { name: 'Rajesh N.', review: 'Finally, a healthy tea that actually tastes like Indian masala chai. Love the subtle cardamom kick.', dp: 'https://randomuser.me/api/portraits/men/58.jpg' },
+      { name: 'Neha V.', review: 'I feel so much more balanced and less stressed after switching to Chai Feast.', dp: 'https://randomuser.me/api/portraits/women/23.jpg' },
+      { name: 'Rishabh B.', review: 'As a chai lover, I was skeptical, but the spice blend is spot on. Very refreshing.', dp: 'https://randomuser.me/api/portraits/men/98.jpg' },
+      { name: 'Priyanka M.', review: 'It’s so convenient for office breaks. All the flavor of real masala chai in a minute without the sugar.', dp: 'https://randomuser.me/api/portraits/women/31.jpg' }
     ],
     faqImage: '/assets/images/teap2.webp',
     faqs: [

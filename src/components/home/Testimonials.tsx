@@ -6,31 +6,31 @@ const testimonials = [
     id: 1,
     name: 'Rahul S.',
     review: 'The Mocha Feast is incredible! Gives me the perfect energy boost before my workouts.',
-    dp: 'https://i.pravatar.cc/150?img=11',
+    dp: 'https://randomuser.me/api/portraits/men/75.jpg',
   },
   {
     id: 2,
     name: 'Priya K.',
     review: 'Atta Feast has changed my daily routine. It is so wholesome and easy to digest.',
-    dp: 'https://i.pravatar.cc/150?img=5',
+    dp: 'https://randomuser.me/api/portraits/women/54.jpg',
   },
   {
     id: 3,
     name: 'Amit V.',
     review: 'Chai Feast tastes just like authentic Indian chai but with so much added nutrition.',
-    dp: 'https://i.pravatar.cc/150?img=8',
+    dp: 'https://randomuser.me/api/portraits/men/34.jpg',
   },
   {
     id: 4,
     name: 'Neha M.',
     review: 'I love how clean the ingredients are. No hidden blends, just pure nutrition.',
-    dp: 'https://i.pravatar.cc/150?img=9',
+    dp: 'https://randomuser.me/api/portraits/women/40.jpg',
   },
   {
     id: 5,
     name: 'Vikram D.',
     review: 'Perfect taste and perfect results. Highly recommend these blends to everyone.',
-    dp: 'https://i.pravatar.cc/150?img=12',
+    dp: 'https://randomuser.me/api/portraits/men/77.jpg',
   }
 ];
 
