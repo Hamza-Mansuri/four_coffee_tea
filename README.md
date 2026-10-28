@@ -41,7 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Keep secrets in the separate backend's environment settings. The frontend only needs `NEXT_PUBLIC_API_URL`; every `NEXT_PUBLIC_` value is public. Copy `.env.example` to `.env.local` for development. Real `.env*` files and local Vercel metadata are ignored by Git. Never copy backend files or private credentials into `public/` or return them in API responses.
 
-The root `vercel.json` sets `public: false` for deployment source and build-log visibility. Keep Vercel's **Build Logs and Source Protection** enabled and do not deploy with `vercel --public`. This configuration applies to new deployments; it does not retroactively secure an older deployment that already exposed its sources.
+Access to deployment source and build logs is controlled by Vercel. Check those access controls in the project dashboard separately from browser source maps. Do not add the legacy `public` property to `vercel.json`: Vercel's current deployment schema no longer accepts it. Source protection on a new deployment cannot recall source files that were previously downloaded.
 
 To restrict access to the complete original project, change GitHub **Settings → General → Danger Zone → Change repository visibility → Make private**, and confirm that Vercel still has access to the repository. Existing clones and downloads cannot be recalled.
 
