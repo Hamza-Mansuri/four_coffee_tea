@@ -37,7 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Production source protection
 
-`npm run build` uses Next.js production minification and explicitly disables browser source maps. It checks `public/` for environment files, private keys, source files, database dumps and symlinks, then checks the generated browser bundles for source maps and map references. A failed check stops deployment. Run `npm run test:security` to verify these guards.
+`npm run build` uses Next.js production minification and explicitly disables browser source maps. It checks `public/` for environment files, private keys, source files, database dumps and symlinks, then checks the generated browser bundles for source maps and map references. A failed check stops deployment. Vercel is explicitly configured to use this guarded build command. Run `npm run test:security` to verify these guards.
 
 Keep secrets in the separate backend's environment settings. The frontend only needs `NEXT_PUBLIC_API_URL`; every `NEXT_PUBLIC_` value is public. Copy `.env.example` to `.env.local` for development. Real `.env*` files and local Vercel metadata are ignored by Git. Never copy backend files or private credentials into `public/` or return them in API responses.
 
